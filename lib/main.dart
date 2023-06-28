@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     WidgetSpan(
                         child: Icon(size: 25, color: Colors.amber, Icons.star)),
                     TextSpan(
-                        text: "4.5",
+                        text: "4.6",
                         style: GoogleFonts.mulish(
                             textStyle: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w600))),
