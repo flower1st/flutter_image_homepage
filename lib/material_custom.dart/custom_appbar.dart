@@ -81,9 +81,9 @@ class _CustomAppBar extends State<CustomAppBar> {
           child: ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
+              fixedSize: MaterialStateProperty.all(Size(170, 55)),
               backgroundColor: MaterialStateProperty.all(Color(0XFFD3427A)),
-              padding:
-                  MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(26)),
+              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
@@ -91,7 +91,12 @@ class _CustomAppBar extends State<CustomAppBar> {
                 ),
               ),
             ),
-            child: Text("For Bussiness"),
+            child: Text(
+              "For Bussiness",
+              style: GoogleFonts.mulish(
+                  textStyle:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+            ),
           ),
         ),
         SizedBox(width: 20),

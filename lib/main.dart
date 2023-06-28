@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homepage/button_material.dart/button_bar.dart';
 import 'package:homepage/material_custom.dart/custom_appbar.dart';
 import 'package:homepage/material_custom.dart/gridview_image.dart';
 import 'package:homepage/test_pinned.dart';
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: [
+        slivers: <Widget>[
           SliverAppBar(
             elevation: 0,
             title: CustomAppBar(),
@@ -86,60 +87,121 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]),
               ),
             ),
-            floating: true,
-            snap: true,
+            pinned: true,
+            floating: false,
           ),
           SliverToBoxAdapter(
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 190, top: 30),
-                  child: CircleAvatar(
-                    backgroundColor: Color(0XFF777777),
-                    radius: 50,
+            child: Container(
+              width: double.infinity,
+              height: 200,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 190, top: 30),
                     child: CircleAvatar(
-                      backgroundImage: AssetImage("images/avt1.png"),
-                      radius: 48,
+                      backgroundColor: Color(0XFF777777),
+                      radius: 50,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("images/avt1.png"),
+                        radius: 48,
+                      ),
                     ),
                   ),
+                  Positioned(
+                    left: 300,
+                    top: 40,
+                    child: Text.rich(TextSpan(children: [
+                      TextSpan(
+                          text: "Lathersalonaspen",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.w700))),
+                      WidgetSpan(child: SizedBox(width: 10)),
+                      TextSpan(
+                          text: "Open Now ",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0XFF007B2A),
+                                  fontWeight: FontWeight.w700))),
+                      TextSpan(
+                          text: "- Closes 10 PM",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0XFF777777),
+                                  fontWeight: FontWeight.w700))),
+                    ])),
+                  ),
+                  Positioned(
+                    left: 300,
+                    top: 100,
+                    child: Text.rich(TextSpan(children: [
+                      WidgetSpan(
+                          child:
+                              Icon(size: 25, color: Colors.amber, Icons.star)),
+                      TextSpan(
+                          text: "4.5",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.w600))),
+                      TextSpan(
+                          text: " (1200)",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                  color: Color(0XFF777777)))),
+                      WidgetSpan(child: SizedBox(width: 10)),
+                      WidgetSpan(
+                          child: Image(
+                              width: 22,
+                              height: 22,
+                              image: AssetImage("images/tichxanh.png"))),
+                      WidgetSpan(child: SizedBox(width: 10)),
+                      TextSpan(
+                          text: "Verified by Owner",
+                          style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0XFF777777)))),
+                    ])),
+                  ),
+                  Positioned(right: 150, top: 100, child: CustomButtonBar()),
+                ],
+              ),
+            ),
+          ),
+          SliverPadding(
+              padding: EdgeInsets.only(
+                  left: 1400, right: 20), // Adjust the left padding as needed
+              sliver: SliverAppBar(
+                pinned: true,
+                title: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Text('Sliver App Bar with Row'),
+                    ],
+                  ),
                 ),
-                Positioned(
-                  left: 300,
-                  top: 40,
-                  child: Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: "Lathersalonaspen",
-                        style: GoogleFonts.mulish(
-                            textStyle: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.w700))),
-                  ])),
+                backgroundColor: Colors.blue,
+                expandedHeight: 500,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Image.network(
+                    'https://nationaltoday.com/wp-content/uploads/2021/12/Festival-of-Owls-Week-1200x834.jpg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Positioned(
-                  left: 300,
-                  top: 80,
-                  child: Text.rich(TextSpan(children: [
-                    WidgetSpan(
-                        child: Icon(size: 25, color: Colors.amber, Icons.star)),
-                    TextSpan(
-                        text: "4.6",
-                        style: GoogleFonts.mulish(
-                            textStyle: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600))),
-                    TextSpan(
-                        text: " (1200)",
-                        style: GoogleFonts.mulish(
-                            textStyle: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w300,
-                                color: Color(0XFF777777)))),
-                    WidgetSpan(
-                        child: Image(
-                            width: 22,
-                            height: 22,
-                            image: AssetImage("images/tichxanh.png")))
-                  ])),
-                )
-              ],
+              )),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('Item $index'),
+                );
+              },
+              childCount: 50,
             ),
           ),
         ],
