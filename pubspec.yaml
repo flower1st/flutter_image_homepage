@@ -42,7 +42,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   url_launcher:
   page_transition: ^2.0.9
-
+  number_paginator: ^0.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
