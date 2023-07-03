@@ -1,17 +1,19 @@
 // ignore_for_file: prefer_final_fields, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/rendering.dart';
-import 'dart:math' as math;
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homepage/bottom_material/bottom_links.dart';
 import 'package:homepage/button_material.dart/button_bar.dart';
+import 'package:homepage/button_material.dart/viewall_button.dart';
+
 import 'package:homepage/material_custom.dart/custom_appbar.dart';
+import 'package:homepage/material_custom.dart/google_map_api.dart';
 import 'package:homepage/material_custom.dart/gridview_image.dart';
-import 'package:homepage/material_custom.dart/mini_box_custom.dart';
-import 'package:homepage/material_custom.dart/row1_custom.dart';
-import 'package:homepage/test_pinned.dart';
-import 'package:number_paginator/number_paginator.dart';
-import 'package:page_transition/page_transition.dart';
+
+import 'package:homepage/material_custom.dart/mouse_region.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool isExpanded = false;
   bool showWidget = false;
   int numberOfPages = 15;
   int currentPage = 0;
@@ -48,14 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
   double rating = 4;
   @override
   Widget build(BuildContext context) {
-    var pages = List.generate(
-        numberOfPages,
-        (index) => Center(
-              child: Text(
-                "Page Number:${index + 1}",
-                style: const TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ));
     return Scaffold(
         body: Container(
       width: double.maxFinite,
@@ -546,15 +541,92 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ]),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text('Item $index'),
-                  );
-                },
-                childCount: 50,
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 20,
               ),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.fromLTRB(1200, 20, 20, 20),
+              sliver: SliverAppBar(
+                expandedHeight: 300,
+                collapsedHeight: 300,
+                pinned: true,
+                floating: false,
+                snap: false,
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(0)),
+                  width: 300,
+                  height: 300,
+                  child: MapScreen(),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Stack(children: [
+                Positioned(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(right: 1660),
+                          child: Text(
+                            style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 35, fontWeight: FontWeight.w700)),
+                            "Services",
+                          )),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner2.png", "Nail Extension")),
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner3.png", "Nail Art")),
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner4.png", "Manicure")),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner2.png", "Nail Extension")),
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner3.png", "Nail Art")),
+                          SizedBox(width: 20),
+                          InkWell(
+                              onTap: () {},
+                              child: CustomMouseRegion(
+                                  "images/banner4.png", "Manicure")),
+                        ],
+                      ),
+                      SizedBox(height: 60),
+                      ViewAllButton(),
+                      BottomMaterialLink(),
+                    ],
+                  ),
+                ),
+              ]),
             ),
           ]),
         ],
@@ -564,26 +636,40 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class _CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget widget;
+
+  _CustomHeaderDelegate({required this.widget});
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      height: 100,
-      color: Colors.blue,
-      child: Center(
-        child: Text('SliverPersistentHeader in Positioned'),
+    return Stack(children: [
+      Positioned(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(1200, 0, 20, 20),
+          child: Container(
+            width: 550,
+            height: 400,
+            child: Card(
+              color: Color.fromARGB(255, 222, 222, 14),
+              elevation: 5.0,
+              child: Center(child: widget),
+            ),
+          ),
+        ),
       ),
-    );
+    ]);
   }
 
   @override
-  double get maxExtent => 200;
+  double get maxExtent => 250;
 
   @override
-  double get minExtent => 200;
+  double get minExtent => 250;
 
   @override
   bool shouldRebuild(_CustomHeaderDelegate oldDelegate) {
-    return false;
+    return true;
   }
 }
+
+Widget buildAppBar() => SliverAppBar(title: Text("helloWorld"));
