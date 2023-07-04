@@ -44,6 +44,11 @@ dependencies:
   page_transition: ^2.0.9
   number_paginator: ^0.2.3
   google_maps_flutter: ^2.3.1
+  flutter_typeahead: any
+  chips_input:
+  textfield_tags:
+  image_picker:
+  get: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

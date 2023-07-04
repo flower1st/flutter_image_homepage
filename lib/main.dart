@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/bottom_material/bottom_links.dart';
 import 'package:homepage/button_material.dart/button_bar.dart';
+import 'package:homepage/button_material.dart/button_image.dart';
 import 'package:homepage/button_material.dart/viewall_button.dart';
 
 import 'package:homepage/material_custom.dart/custom_appbar.dart';
@@ -310,234 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Positioned(
                   right: 200,
                   bottom: 20,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text('Show all Photos'),
-                                        SizedBox(
-                                          width: 400,
-                                        ),
-                                        ElevatedButton(
-                                            onPressed: () {},
-                                            style: ButtonStyle(
-                                              elevation:
-                                                  MaterialStateProperty.all(1),
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                      Size(130, 50)),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.white),
-                                              shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                  side: BorderSide(
-                                                      width: 3,
-                                                      color: Color(0XFFCDCDCD)),
-                                                ),
-                                              ),
-                                            ),
-                                            child: Text.rich(
-                                              TextSpan(children: [
-                                                WidgetSpan(
-                                                    alignment:
-                                                        PlaceholderAlignment
-                                                            .middle,
-                                                    child: Icon(
-                                                        color: Color.fromARGB(
-                                                            212, 14, 14, 11),
-                                                        size: 25,
-                                                        Icons.share_outlined)),
-                                                WidgetSpan(
-                                                    child: SizedBox(width: 5)),
-                                                TextSpan(
-                                                    text: "Share",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0XFF777777),
-                                                            fontSize: 20))),
-                                              ]),
-                                            )),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        ElevatedButton(
-                                            onPressed: () {},
-                                            style: ButtonStyle(
-                                              elevation:
-                                                  MaterialStateProperty.all(1),
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                      Size(130, 50)),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.white),
-                                              shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                  side: BorderSide(
-                                                      width: 3,
-                                                      color: Color(0XFFCDCDCD)),
-                                                ),
-                                              ),
-                                            ),
-                                            child: Text.rich(
-                                              TextSpan(children: [
-                                                WidgetSpan(
-                                                    alignment:
-                                                        PlaceholderAlignment
-                                                            .middle,
-                                                    child: Icon(
-                                                        color: Color.fromARGB(
-                                                            212, 14, 14, 11),
-                                                        size: 25,
-                                                        Icons.favorite_border)),
-                                                WidgetSpan(
-                                                    child: SizedBox(width: 5)),
-                                                TextSpan(
-                                                    text: "Save",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0XFF777777),
-                                                            fontSize: 20))),
-                                              ]),
-                                            )),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        ElevatedButton(
-                                            onPressed: () {},
-                                            style: ButtonStyle(
-                                              elevation:
-                                                  MaterialStateProperty.all(1),
-                                              fixedSize:
-                                                  MaterialStateProperty.all(
-                                                      Size(170, 50)),
-                                              backgroundColor:
-                                                  MaterialStateProperty.all<
-                                                      Color>(Colors.white),
-                                              shape: MaterialStateProperty.all(
-                                                RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
-                                                  side: BorderSide(
-                                                      width: 3,
-                                                      color: Color(0XFFCDCDCD)),
-                                                ),
-                                              ),
-                                            ),
-                                            child: Text.rich(
-                                              TextSpan(children: [
-                                                TextSpan(
-                                                    text: "Sort by: ",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: Color(
-                                                                0XFF777777),
-                                                            fontSize: 20))),
-                                                TextSpan(
-                                                    text: "All",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    0,
-                                                                    0,
-                                                                    0),
-                                                            fontSize: 20))),
-                                                WidgetSpan(
-                                                    alignment:
-                                                        PlaceholderAlignment
-                                                            .middle,
-                                                    child: Icon(
-                                                        color: Color.fromARGB(
-                                                            212, 14, 14, 11),
-                                                        size: 35,
-                                                        Icons.arrow_drop_down)),
-                                              ]),
-                                            )),
-                                        SizedBox(
-                                          width: 500,
-                                        ),
-                                        IconButton(
-                                          highlightColor: Colors.transparent,
-                                          splashColor: Colors.transparent,
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          icon: Icon(Icons.close),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                content: Container(
-                                    width: 1500,
-                                    height: 1000,
-                                    child: GridViewImage()),
-                              );
-                            });
-                      },
-                      style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(1),
-                        fixedSize: MaterialStateProperty.all(Size(190, 50)),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(0)),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side:
-                                BorderSide(width: 3, color: Color(0XFFCDCDCD)),
-                          ),
-                        ),
-                      ),
-                      child: Text.rich(
-                        TextSpan(children: [
-                          WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: Icon(
-                                  color: Color.fromARGB(212, 14, 14, 11),
-                                  size: 20,
-                                  Icons.grid_3x3_outlined)),
-                          WidgetSpan(child: SizedBox(width: 5)),
-                          TextSpan(
-                              text: "Show all Photos",
-                              style: GoogleFonts.mulish(
-                                  textStyle: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0XFF777777),
-                                      fontSize: 20))),
-                        ]),
-                      )),
+                  child: ElevatedButtonImage(),
                 ),
               ]),
             ),
@@ -566,6 +340,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SliverToBoxAdapter(
               child: Stack(children: [
+                Positioned(
+                    right: 10,
+                    child: SingleChildScrollView(
+                      reverse: true,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 300,
+                            height: 300,
+                            color: Colors.blue,
+                          )
+                        ],
+                      ),
+                    )),
                 Positioned(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,

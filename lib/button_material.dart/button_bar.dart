@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/material_custom.dart/gridview_image.dart';
+import 'package:homepage/page_material/review_page.dart';
 
 class CustomButtonBar extends StatefulWidget {
   @override
@@ -35,7 +36,13 @@ class _CustomButtonBar extends State<CustomButtonBar> {
       ),
       SizedBox(width: 20),
       ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return ReviewPage();
+              },
+            ));
+          },
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(1),
             fixedSize: MaterialStateProperty.all(Size(220, 50)),
