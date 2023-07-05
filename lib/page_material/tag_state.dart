@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_string_interpolations, avoid_print, prefer_const_constructors
+// ignore_for_file: unnecessary_string_interpolations, avoid_print, prefer_const_constructors, unnecessary_const
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: const TagState(),
       debugShowCheckedModeBanner: false,
+      home: const MyApp(),
     );
   }
 }
@@ -94,15 +94,15 @@ class _TagState extends State<TagState> {
                               child: Row(
                                   children: tags.map((String tag) {
                                 return Container(
-                                  width: 200,
+                                  width: 180,
                                   height: 50,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: Color.fromARGB(255, 77, 55, 55)),
+                                        width: 3, color: Color(0XFFCDCDCD)),
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(300.0),
                                     ),
-                                    color: Color(0XFFCDCDCD),
+                                    color: Color(0XFFEBEBEB),
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -122,11 +122,11 @@ class _TagState extends State<TagState> {
                                           print("$tag selected");
                                         },
                                       ),
-                                      const SizedBox(width: 20),
+                                      const SizedBox(width: 5),
                                       InkWell(
                                         child: const Icon(
                                           Icons.close,
-                                          size: 20.0,
+                                          size: 21.0,
                                           color: Color.fromARGB(255, 3, 0, 0),
                                         ),
                                         onTap: () {
@@ -147,7 +147,6 @@ class _TagState extends State<TagState> {
               });
             },
           ),
-          Container(width: 300, height: 300, child: ImageUploader()),
         ],
       ),
     );
