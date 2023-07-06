@@ -341,6 +341,213 @@ class _MoreReview extends State<MoreReview> {
                               ),
                             ],
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50, left: 130),
+                          child: Column(
+                            children: [
+                              Text("Review with Images"),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 190,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:
+                                              AssetImage("images/banner1.png")),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Container(
+                                    width: 190,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:
+                                              AssetImage("images/banner1.png")),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Container(
+                                    width: 190,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:
+                                              AssetImage("images/banner1.png")),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Container(
+                                    width: 190,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image:
+                                              AssetImage("images/banner1.png")),
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text("View all the images"),
+                              Row(
+                                children: [
+                                  Text("Top Reviews"),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 2, color: Color(0xffCDCDCD)),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                    width: 250,
+                                    height: 50,
+                                    child: Row(
+                                      children: <Widget>[
+                                        new Flexible(
+                                          child: new TextField(
+                                              decoration: InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                      borderSide:
+                                                          BorderSide.none),
+                                                  hintText:
+                                                      'Search by keyword...',
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          left: 20))),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: CircleAvatar(
+                                            radius: 24,
+                                            backgroundColor: Color(
+                                                0XFFD3427A), //<-- SEE HERE
+                                            child: IconButton(
+                                              iconSize: 35,
+                                              icon: Icon(
+                                                Icons.search,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {},
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        elevation: MaterialStateProperty.all(0),
+                                        fixedSize: MaterialStateProperty.all(
+                                            Size(170, 50)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.white),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            side: BorderSide(
+                                                width: 2,
+                                                color: Color(0XFFCDCDCD)),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text.rich(
+                                        TextSpan(children: [
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(
+                                              text: "Sort by: ",
+                                              style: GoogleFonts.mulish(
+                                                  textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color(0XFF777777),
+                                                      fontSize: 20))),
+                                          TextSpan(
+                                              text: "All",
+                                              style: GoogleFonts.mulish(
+                                                  textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color.fromARGB(
+                                                          255, 0, 0, 0),
+                                                      fontSize: 20))),
+                                          WidgetSpan(
+                                              alignment:
+                                                  PlaceholderAlignment.middle,
+                                              child: Icon(
+                                                  color: Color.fromARGB(
+                                                      212, 14, 14, 11),
+                                                  size: 25,
+                                                  Icons.arrow_drop_down)),
+                                        ]),
+                                      )),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      style: ButtonStyle(
+                                        elevation: MaterialStateProperty.all(0),
+                                        fixedSize: MaterialStateProperty.all(
+                                            Size(200, 50)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.white),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                            side: BorderSide(
+                                                width: 2,
+                                                color: Color(0XFFCDCDCD)),
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text.rich(
+                                        TextSpan(children: [
+                                          WidgetSpan(child: SizedBox(width: 5)),
+                                          TextSpan(
+                                              text: "Filter by rating",
+                                              style: GoogleFonts.mulish(
+                                                  textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color(0XFF777777),
+                                                      fontSize: 20))),
+                                          WidgetSpan(
+                                              alignment:
+                                                  PlaceholderAlignment.middle,
+                                              child: Icon(
+                                                  color: Color.fromARGB(
+                                                      212, 14, 14, 11),
+                                                  size: 25,
+                                                  Icons.arrow_drop_down)),
+                                        ]),
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
