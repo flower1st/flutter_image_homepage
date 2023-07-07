@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_final_fields, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member, unused_field
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter/rendering.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/bottom_material/bottom_links.dart';
@@ -334,7 +332,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(0)),
                   width: 300,
                   height: 300,
-                  child: MapScreen(),
                 ),
               ),
             ),

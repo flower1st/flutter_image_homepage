@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/material_custom.dart/gridview_image.dart';
+import 'package:homepage/page_material/search_page.dart';
 
 class CustomAppBar extends StatefulWidget {
   @override
@@ -62,13 +63,22 @@ class _CustomAppBar extends State<CustomAppBar> {
                     endIndent: 10,
                     color: Colors.grey),
                 new Flexible(
-                  child: new TextField(
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.location_pin),
-                          border:
-                              OutlineInputBorder(borderSide: BorderSide.none),
-                          hintText: 'Address, city state or zip',
-                          contentPadding: EdgeInsets.only(left: 50))),
+                  child: InkWell(
+                    child: new TextField(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return SearchPage();
+                            },
+                          ));
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.location_pin),
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            hintText: 'Address, city state or zip',
+                            contentPadding: EdgeInsets.only(left: 50))),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),

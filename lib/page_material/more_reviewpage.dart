@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:homepage/button_material.dart/button_bar.dart';
 import 'package:homepage/material_custom.dart/custom_appbar.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MoreReview extends StatefulWidget {
   const MoreReview({super.key});
@@ -545,7 +546,7 @@ class _MoreReview extends State<MoreReview> {
                                         ]),
                                       )),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         )

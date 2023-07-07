@@ -43,15 +43,17 @@ dependencies:
   url_launcher:
   page_transition: ^2.0.9
   number_paginator: ^0.2.3
-  google_maps_flutter: ^2.3.1
-  flutter_typeahead: any
+  google_maps_flutter: ^2.1.0
+  flutter_typeahead: any  
   chips_input:
   textfield_tags:
   image_picker:
   multi_image_picker:
   dotted_border:
   percent_indicator:
-  google_maps_flutter_web:
+  latlng: ^1.0.0
+  latlong2: ^0.9.0
+  flutter_map: ^5.0.0
   
   get: any
   
