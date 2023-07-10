@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+
 import 'package:latlong2/latlong.dart';
 
 class MarkerData {
@@ -11,12 +10,12 @@ class MarkerData {
   MarkerData({required this.name, required this.position});
 }
 
-class MapApi extends StatefulWidget {
+class MapScreen extends StatefulWidget {
   @override
-  _MapApi createState() => _MapApi();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapApi extends State<MapApi> {
+class _MapScreenState extends State<MapScreen> {
   MapController mapController = MapController();
 
   List<MarkerData> allMarkers = [
@@ -36,7 +35,7 @@ class _MapApi extends State<MapApi> {
     displayedMarkers = allMarkers;
   }
 
-  void searchMarkers(String query) {
+  void searchMarker(String query) {
     setState(() {
       displayedMarkers = allMarkers
           .where((marker) =>
@@ -70,8 +69,7 @@ class _MapApi extends State<MapApi> {
                 markers: displayedMarkers.map((markerData) {
                   return Marker(
                     point: markerData.position,
-                    builder: (ctx) =>
-                        Image(image: AssetImage("images/marker.png")),
+                    builder: (ctx) => Icon(Icons.location_on),
                   );
                 }).toList(),
               ),
@@ -82,8 +80,8 @@ class _MapApi extends State<MapApi> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: TextField(
-            onSubmitted: (value) {
-              searchMarkers(value);
+            onChanged: (value) {
+              searchMarker(value);
             },
             decoration: InputDecoration(
               labelText: 'Search Marker',

@@ -3,15 +3,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:homepage/material_custom.dart/google_map_api.dart';
 
 import 'package:homepage/page_material/search_page.dart';
 
-class CustomAppBar extends StatefulWidget {
+class CustomAppBar2 extends StatefulWidget {
   @override
-  State<CustomAppBar> createState() => _CustomAppBar();
+  State<CustomAppBar2> createState() => _CustomAppBar2();
 }
 
-class _CustomAppBar extends State<CustomAppBar> {
+class _CustomAppBar2 extends State<CustomAppBar2> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,14 +66,11 @@ class _CustomAppBar extends State<CustomAppBar> {
                 new Flexible(
                   child: InkWell(
                     child: new TextField(
-                        onChanged: (value) {},
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return SearchPage();
-                            },
-                          ));
+                        onSubmitted: (value) {
+                          MapApi();
                         },
+                        onChanged: (value) {},
+                        onTap: () {},
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.location_pin),
                             border:
