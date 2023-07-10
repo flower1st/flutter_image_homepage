@@ -1,4 +1,6 @@
-// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
+
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +17,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  openOrClose(bool result) {
+    Random random = Random();
+    result = random.nextDouble() <= 0.7;
+  }
+
+  List spanames = List.generate(30, (index) => ("Spa number $index, CA - ("));
   List names = List.generate(30, (index) => ("Customer$index"));
   List designations = List.generate(30, (index) => ("Title$index"));
   @override
@@ -223,6 +231,105 @@ class _SearchPageState extends State<SearchPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                      child: CircleAvatar(
+                                                    backgroundImage: AssetImage(
+                                                        "images/avt1.png"),
+                                                  )),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      spanames[index],
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                    child: Icon(
+                                                      Icons.grade,
+                                                      color: Colors.amber,
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "4.5",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "(1200)",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                      child: Text(
+                                                    "Open Now ",
+                                                    style: GoogleFonts.mulish(
+                                                        textStyle: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600)),
+                                                  )),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "- Closes 10 PM",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                      child: Image(
+                                                          width: 20,
+                                                          height: 20,
+                                                          image: AssetImage(
+                                                              "images/pin.png"))),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      spanames[index],
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
                                                 Text(
                                                   names[index],
                                                   style: TextStyle(
