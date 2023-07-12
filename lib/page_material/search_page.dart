@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, sort_child_properties_last, unnecessary_new, unnecessary_null_comparison
+// ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, sort_child_properties_last, unnecessary_new, unnecessary_null_comparison, prefer_final_fields, unused_element, curly_braces_in_flow_control_structures
 
 import 'dart:math';
 
@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:homepage/bottom_material/bottom_links.dart';
 import 'package:homepage/material_custom.dart/google_map_api.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 class Spa {
   final String name;
@@ -32,6 +33,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   MapController mapController = MapController();
+  final NumberPaginatorController _pageController = NumberPaginatorController();
+  int itemClicked = -1;
   TextEditingController _searchController = TextEditingController();
   ScrollController _scrollController = ScrollController();
 
@@ -101,7 +104,7 @@ class _SearchPageState extends State<SearchPage> {
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(51.576533, -0.455329)),
+        position: LatLng(51.576533, -0.473329)),
     Spa(
         name: 'Store Z',
         address: "City 0",
@@ -113,80 +116,54 @@ class _SearchPageState extends State<SearchPage> {
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.4219999, -122.0840575)),
+        position: LatLng(39.349291, -101.715106)),
     Spa(
         name: 'Store X',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.42796133580664, -122.085749655962)),
+        position: LatLng(39.347825, -101.717850)),
     Spa(
         name: 'Store Y',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.422, -122.086)),
+        position: LatLng(39.346284, -101.709417)),
     Spa(
         name: 'Store I',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.423, -122.083)),
+        position: LatLng(39.342422, -101.704701)),
     Spa(
         name: 'Store N',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.4219999, -122.0840575)),
+        position: LatLng(39.345430, -101.703015)),
     Spa(
         name: 'Store M',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.42796133580664, -122.085749655962)),
+        position: LatLng(39.352639, -101.708545)),
     Spa(
         name: 'Store L',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.422, -122.086)),
+        position: LatLng(39.347258, -101.699405)),
     Spa(
         name: 'Store O',
         address: "City 0",
         thumb:
             "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.423, -122.083)),
-    Spa(
-        name: 'Store A',
-        address: "City 0",
-        thumb:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.4219999, -122.0840575)),
-    Spa(
-        name: 'Store B',
-        address: "City 0",
-        thumb:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.42796133580664, -122.085749655962)),
-    Spa(
-        name: 'Store C',
-        address: "City 0",
-        thumb:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.422, -122.086)),
-    Spa(
-        name: 'Store D',
-        address: "City 0",
-        thumb:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting\nindustry. Lorem Ipsum has been the industry's standard dummy.",
-        position: LatLng(37.423, -122.083)),
+        position: LatLng(39.3489868739043, -101.70366680462864)),
   ];
   Color _widgetColor = Color.fromARGB(255, 249, 249, 249);
   List<Spa> displayedSpas = [];
-
-  String searchQuery = '';
-
-  bool _isSelected = false;
+  int numberOfPages = 10;
+  int currentPages = 0;
   @override
   void initState() {
     super.initState();
@@ -209,22 +186,11 @@ class _SearchPageState extends State<SearchPage> {
 
   void filterItems(String query) {
     setState(() {
-      searchQuery = query;
       displayedSpas = spas
-          .where(
-              (item) => item.name.toLowerCase().contains(query.toLowerCase()))
+          .where((element) =>
+              element.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
-  }
-
-  void scrollToIndex(int index) {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        index * 56.0, // Assuming each list item has a height of 56.0
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
   }
 
   void searchMarkers2(String query) {
@@ -250,12 +216,32 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  void dispose2() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   void _changeColor() {
     setState(() {
       _widgetColor = _widgetColor == Color(0xffFFECEC)
           ? Color.fromARGB(255, 255, 255, 255)
           : Color(0xffFFECEC);
     });
+  }
+
+  void _scrollToIndex(int index) {
+    setState(() {
+      itemClicked = index;
+    });
+    final double itemExtent = 270; // Assuming each item has a height of 56.0
+    final double offset = index * itemExtent;
+    if (_scrollController.hasClients)
+      _scrollController.animateTo(
+        offset, // Assuming each item has a height of 56.0
+        duration: Duration(milliseconds: 500),
+
+        curve: Curves.easeInOut,
+      );
   }
 
   @override
@@ -302,8 +288,8 @@ class _SearchPageState extends State<SearchPage> {
                       new Flexible(
                         child: new TextField(
                             controller: _searchController,
-                            onChanged: filterItems,
                             onTap: () {},
+                            onChanged: (value) => searchMarkers(value),
                             onSubmitted: (value) {
                               String searchQuery = value.trim().toLowerCase();
                               Spa? matchedSpa = spas.firstWhereOrNull(
@@ -553,330 +539,358 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                     Expanded(
                         child: ListView.builder(
-                            physics: AlwaysScrollableScrollPhysics(),
-                            itemCount: spas.length,
+                            controller: _scrollController,
+                            itemCount: displayedSpas.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 title: InkWell(
                                   onTap: () {
-                                    searchMarkers2(spas[index].name);
-                                    moveCameraToMarker(spas[index].position);
+                                    searchMarkers2(displayedSpas[index].name);
+                                    moveCameraToMarker(
+                                        displayedSpas[index].position);
                                     setState(() {
-                                      _isSelected = !_isSelected;
+                                      if (itemClicked == index) {
+                                        itemClicked = -1;
+                                      } else {
+                                        itemClicked = index;
+                                      }
                                     });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: _isSelected
-                                            ? Color(0xffFFECEC)
-                                            : null,
-                                        border: Border(
-                                            bottom: BorderSide(
-                                          color: const Color.fromARGB(
-                                              255, 215, 25, 25),
-                                        ))),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Stack(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 30),
-                                              child: Container(
-                                                width: 250,
-                                                height: 270,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          "https://nationaltoday.com/wp-content/uploads/2021/12/Festival-of-Owls-Week-1200x834.jpg")),
-                                                  color: Color.fromARGB(
-                                                      255, 55, 18, 164),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: itemClicked == index
+                                                ? Color(0xffD3427A)
+                                                : Colors.transparent)),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: itemClicked == index
+                                              ? Color(0xffFFECEC)
+                                              : Colors.transparent,
+                                          border: Border(
+                                              bottom: BorderSide(
+                                            color: const Color(0xffEBEBEB),
+                                          ))),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 10),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Stack(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 30),
+                                                child: Container(
+                                                  width: 250,
+                                                  height: 270,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            "https://nationaltoday.com/wp-content/uploads/2021/12/Festival-of-Owls-Week-1200x834.jpg")),
+                                                    color: Color.fromARGB(
+                                                        255, 55, 18, 164),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Positioned(
-                                                child: Icon(
-                                                    color: const Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                    size: 30,
-                                                    shadows: [
-                                                      Shadow(
-                                                          blurRadius: 300,
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              255,
-                                                              251,
-                                                              251))
-                                                    ],
-                                                    Icons.favorite)),
-                                          ],
-                                        ),
-                                        SizedBox(width: 5),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 50),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text.rich(TextSpan(children: [
-                                                WidgetSpan(
-                                                    child: CircleAvatar(
-                                                  child: CircleAvatar(
-                                                    radius: 18,
-                                                    backgroundImage: AssetImage(
-                                                        "images/avt1.png"),
-                                                  ),
-                                                  backgroundColor: Colors.grey,
-                                                  radius: 20,
-                                                )),
-                                                WidgetSpan(
-                                                    child: SizedBox(
-                                                  width: 15,
-                                                )),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    spas[index].name,
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 25,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                )
-                                              ])),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text.rich(TextSpan(children: [
-                                                WidgetSpan(
+                                              Positioned(
                                                   child: Icon(
-                                                    Icons.grade,
-                                                    color: Colors.amber,
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    "4.5 ",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                  alignment:
-                                                      PlaceholderAlignment
-                                                          .bottom,
-                                                  child: Text(
-                                                    "(1200)",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Color(
-                                                                0xff777777),
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                    child: SizedBox(
-                                                  width: 30,
-                                                )),
-                                                WidgetSpan(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 0, 0, 0),
+                                                      size: 30,
+                                                      shadows: [
+                                                        Shadow(
+                                                            blurRadius: 300,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    255,
+                                                                    251,
+                                                                    251))
+                                                      ],
+                                                      Icons.favorite)),
+                                            ],
+                                          ),
+                                          SizedBox(width: 5),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 50),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                      child: CircleAvatar(
+                                                    child: CircleAvatar(
+                                                      radius: 18,
+                                                      backgroundImage:
+                                                          AssetImage(
+                                                              "images/avt1.png"),
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.grey,
+                                                    radius: 20,
+                                                  )),
+                                                  WidgetSpan(
+                                                      child: SizedBox(
+                                                    width: 15,
+                                                  )),
+                                                  WidgetSpan(
                                                     child: Text(
-                                                  "Open Now ",
-                                                  style: GoogleFonts.mulish(
-                                                      textStyle: TextStyle(
-                                                          color:
-                                                              Color(0xff007B2A),
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.w600)),
-                                                )),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    "- Closes 10 PM",
+                                                      displayedSpas[index].name,
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 25,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                    child: Icon(
+                                                      Icons.grade,
+                                                      color: Colors.amber,
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "4.5 ",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                    alignment:
+                                                        PlaceholderAlignment
+                                                            .bottom,
+                                                    child: Text(
+                                                      "(1200)",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color(
+                                                                  0xff777777),
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                      child: SizedBox(
+                                                    width: 30,
+                                                  )),
+                                                  WidgetSpan(
+                                                      child: Text(
+                                                    "Open Now ",
                                                     style: GoogleFonts.mulish(
                                                         textStyle: TextStyle(
                                                             color: Color(
-                                                                0xff777777),
+                                                                0xff007B2A),
                                                             fontSize: 18,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w600)),
-                                                  ),
-                                                )
-                                              ])),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              Text.rich(TextSpan(children: [
-                                                WidgetSpan(
-                                                    child: Image(
-                                                        filterQuality:
-                                                            FilterQuality.high,
-                                                        fit: BoxFit.cover,
-                                                        width: 20,
-                                                        height: 20,
-                                                        image: AssetImage(
-                                                            "images/pin.png"))),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    spas[index].address,
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Color(
-                                                                0xff777777),
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
+                                                  )),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "- Closes 10 PM",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color(
+                                                                  0xff777777),
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
+                                                SizedBox(
+                                                  height: 15,
                                                 ),
-                                                WidgetSpan(
-                                                    child: SizedBox(
-                                                  width: 5,
-                                                )),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    "CA - ( ",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Color(
-                                                                0xff777777),
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                    child: SizedBox(
-                                                  width: 5,
-                                                )),
-                                                WidgetSpan(
-                                                    child: Image(
-                                                        width: 20,
-                                                        height: 20,
-                                                        filterQuality:
-                                                            FilterQuality.high,
-                                                        fit: BoxFit.cover,
-                                                        image: AssetImage(
-                                                            "images/distance.png"))),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    " 5 miles ",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    0,
-                                                                    0,
-                                                                    0),
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                  child: Text(
-                                                    "drive )",
-                                                    style: GoogleFonts.mulish(
-                                                        textStyle: TextStyle(
-                                                            color: Color(
-                                                                0xff777777),
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                )
-                                              ])),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              Text(
-                                                spas[index].thumb,
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Color(0xff777777)),
-                                              ),
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              ElevatedButton(
-                                                  onPressed: () {},
-                                                  style: ButtonStyle(
-                                                    elevation:
-                                                        MaterialStateProperty
-                                                            .all(0),
-                                                    fixedSize:
-                                                        MaterialStateProperty
-                                                            .all(Size(130, 40)),
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all<Color>(
-                                                                Colors.white),
-                                                    shape: MaterialStateProperty
-                                                        .all(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30.0),
-                                                        side: BorderSide(
-                                                            width: 1,
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    0,
-                                                                    0,
-                                                                    0)),
-                                                      ),
+                                                Text.rich(TextSpan(children: [
+                                                  WidgetSpan(
+                                                      child: Image(
+                                                          filterQuality:
+                                                              FilterQuality
+                                                                  .high,
+                                                          fit: BoxFit.cover,
+                                                          width: 20,
+                                                          height: 20,
+                                                          image: AssetImage(
+                                                              "images/pin.png"))),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      displayedSpas[index]
+                                                          .address,
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color(
+                                                                  0xff777777),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
                                                     ),
                                                   ),
-                                                  child: Text.rich(
-                                                    TextSpan(children: [
-                                                      TextSpan(
-                                                          text: "Book Now",
-                                                          style: GoogleFonts.mulish(
-                                                              textStyle: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w700,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                                  fontSize:
-                                                                      18))),
-                                                    ]),
-                                                  ))
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                                  WidgetSpan(
+                                                      child: SizedBox(
+                                                    width: 5,
+                                                  )),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "CA - ( ",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color(
+                                                                  0xff777777),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                      child: SizedBox(
+                                                    width: 5,
+                                                  )),
+                                                  WidgetSpan(
+                                                      child: Image(
+                                                          width: 20,
+                                                          height: 20,
+                                                          filterQuality:
+                                                              FilterQuality
+                                                                  .high,
+                                                          fit: BoxFit.cover,
+                                                          image: AssetImage(
+                                                              "images/distance.png"))),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      " 5 miles ",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color
+                                                                  .fromARGB(255,
+                                                                      0, 0, 0),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  ),
+                                                  WidgetSpan(
+                                                    child: Text(
+                                                      "drive )",
+                                                      style: GoogleFonts.mulish(
+                                                          textStyle: TextStyle(
+                                                              color: Color(
+                                                                  0xff777777),
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                    ),
+                                                  )
+                                                ])),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                Text(
+                                                  displayedSpas[index].thumb,
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Color(0xff777777)),
+                                                ),
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                ElevatedButton(
+                                                    onPressed: () {},
+                                                    style: ButtonStyle(
+                                                      elevation:
+                                                          MaterialStateProperty
+                                                              .all(0),
+                                                      fixedSize:
+                                                          MaterialStateProperty
+                                                              .all(Size(
+                                                                  130, 40)),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all<Color>(
+                                                                  Colors.white),
+                                                      shape:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      30.0),
+                                                          side: BorderSide(
+                                                              width: 1,
+                                                              color: Color
+                                                                  .fromARGB(255,
+                                                                      0, 0, 0)),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    child: Text.rich(
+                                                      TextSpan(children: [
+                                                        TextSpan(
+                                                            text: "Book Now",
+                                                            style: GoogleFonts.mulish(
+                                                                textStyle: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                    fontSize:
+                                                                        18))),
+                                                      ]),
+                                                    ))
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                                 onTap: () {},
                               );
-                            }))
+                            })),
+                    NumberPaginator(
+                      controller: _pageController,
+                      config: NumberPaginatorUIConfig(),
+                      numberPages: numberOfPages,
+                      onPageChange: (index) {
+                        setState(() {});
+                      },
+                    )
                   ],
                 ),
               ),
@@ -907,10 +921,20 @@ class _SearchPageState extends State<SearchPage> {
                               subdomains: ['mt0', 'mt1', 'mt2', 'mt3']),
                           MarkerLayer(
                             markers: displayedSpas.map((spaData) {
+                              final int index = displayedSpas.indexOf(spaData);
                               return Marker(
                                 point: spaData.position,
                                 builder: (ctx) => InkWell(
                                   onTap: () {
+                                    setState(() {
+                                      if (itemClicked == index) {
+                                        itemClicked = -1;
+                                      } else {
+                                        itemClicked = index;
+                                      }
+                                    });
+                                    _scrollToIndex(index);
+
                                     moveCameraToMarker(spaData.position);
                                   },
                                   onHover: (value) {},
