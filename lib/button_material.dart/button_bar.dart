@@ -14,12 +14,14 @@ class CustomButtonBar extends StatefulWidget {
 class _CustomButtonBar extends State<CustomButtonBar> {
   @override
   Widget build(BuildContext context) {
+    var _mediaquery = MediaQuery.of(context);
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       ElevatedButton(
         onPressed: () {},
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(1),
-          fixedSize: MaterialStateProperty.all(Size(150, 50)),
+          fixedSize: MaterialStateProperty.all(
+              Size(_mediaquery.size.width * 0.09, 50)),
           backgroundColor: MaterialStateProperty.all<Color>(Color(0XFFD3427A)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -45,8 +47,8 @@ class _CustomButtonBar extends State<CustomButtonBar> {
           },
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(1),
-            fixedSize: MaterialStateProperty.all(Size(220, 50)),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
+            fixedSize: MaterialStateProperty.all(
+                Size(_mediaquery.size.width * 0.125, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
@@ -79,8 +81,8 @@ class _CustomButtonBar extends State<CustomButtonBar> {
           onPressed: () {},
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(1),
-            fixedSize: MaterialStateProperty.all(Size(170, 50)),
-            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
+            fixedSize: MaterialStateProperty.all(
+                Size(_mediaquery.size.width * 0.1, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
@@ -112,7 +114,8 @@ class _CustomButtonBar extends State<CustomButtonBar> {
           onPressed: () {},
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(1),
-            fixedSize: MaterialStateProperty.all(Size(130, 50)),
+            fixedSize: MaterialStateProperty.all(
+                Size(_mediaquery.size.width * 0.07, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
@@ -144,7 +147,8 @@ class _CustomButtonBar extends State<CustomButtonBar> {
           onPressed: () {},
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(1),
-            fixedSize: MaterialStateProperty.all(Size(130, 50)),
+            fixedSize: MaterialStateProperty.all(
+                Size(_mediaquery.size.width * 0.07, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(

@@ -24,56 +24,55 @@ class _ViewAllButtonState extends State<ViewAllButton> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 700),
-          child: Visibility(
-            visible: isVisible,
-            child: InkWell(
-              onTap: toggleShowAll,
-              child: Text.rich(TextSpan(children: [
-                TextSpan(
-                  text: 'View All',
-                  style: GoogleFonts.mulish(
-                      textStyle: TextStyle(
-                          color: Colors.pink,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700)),
-                ),
-                WidgetSpan(
-                    child: Icon(
-                  size: 20,
-                  Icons.arrow_forward_outlined,
-                  color: Colors.pink,
-                ))
-              ])),
-            ),
+        Visibility(
+          visible: isVisible,
+          child: InkWell(
+            onTap: toggleShowAll,
+            child: Text.rich(TextSpan(children: [
+              TextSpan(
+                text: 'View All',
+                style: GoogleFonts.mulish(
+                    textStyle: TextStyle(
+                        color: Colors.pink,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700)),
+              ),
+              WidgetSpan(
+                  child: Icon(
+                size: 20,
+                Icons.arrow_forward_outlined,
+                color: Colors.pink,
+              ))
+            ])),
           ),
         ),
         Visibility(
           visible: showAll,
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 20),
-                  InkWell(
-                      onTap: () {},
-                      child: CustomMouseRegion(
-                          "images/banner2.png", "Nail Extension")),
-                  SizedBox(width: 20),
-                  InkWell(
-                      onTap: () {},
-                      child:
-                          CustomMouseRegion("images/banner3.png", "Nail Art")),
-                  SizedBox(width: 20),
-                  InkWell(
-                      onTap: () {},
-                      child:
-                          CustomMouseRegion("images/banner4.png", "Manicure")),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(right: 500),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 20),
+                    InkWell(
+                        onTap: () {},
+                        child: CustomMouseRegion(
+                            "images/banner2.png", "Nail Extension")),
+                    SizedBox(width: 20),
+                    InkWell(
+                        onTap: () {},
+                        child: CustomMouseRegion(
+                            "images/banner3.png", "Nail Art")),
+                    SizedBox(width: 20),
+                    InkWell(
+                        onTap: () {},
+                        child: CustomMouseRegion(
+                            "images/banner4.png", "Manicure")),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
               Row(

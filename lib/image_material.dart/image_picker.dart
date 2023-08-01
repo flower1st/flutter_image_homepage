@@ -87,6 +87,8 @@ class _ImageUploader extends State<ImageUploader> {
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all(1),
                     fixedSize: MaterialStateProperty.all(Size(150, 150)),
+                    side: MaterialStateProperty.all(
+                        BorderSide(width: 2, color: Color(0xff777777))),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Color(0XFFFFECEC)),
                     shape: MaterialStateProperty.all(

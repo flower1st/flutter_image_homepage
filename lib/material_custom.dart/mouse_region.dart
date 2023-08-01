@@ -38,7 +38,7 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
         ),
         duration: Duration(milliseconds: 100),
         width: isHover ? 350 : 350,
-        height: isHover ? 330 : 330,
+        height: isHover ? 350 : 350,
         child: Stack(
           children: [
             Container(
@@ -94,6 +94,7 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                         itemSize: 25,
                         minRating: 1,
                         itemCount: 1,
+                        unratedColor: Colors.amber,
                         itemBuilder: (context, _) =>
                             Icon(Icons.star, color: Colors.amber),
                         onRatingUpdate: (rating) => setState(() {

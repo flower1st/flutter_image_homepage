@@ -104,8 +104,6 @@ class _CustomAppBar2 extends State<CustomAppBar2> {
               style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(Size(170, 55)),
                 backgroundColor: MaterialStateProperty.all(Color(0XFFD3427A)),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(0)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -127,8 +125,6 @@ class _CustomAppBar2 extends State<CustomAppBar2> {
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(26)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -148,8 +144,6 @@ class _CustomAppBar2 extends State<CustomAppBar2> {
               style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Color(0XFFD3427A)),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(26)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

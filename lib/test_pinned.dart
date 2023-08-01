@@ -1,95 +1,78 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('List Demo')),
-        body: CollapsingList(),
+        appBar: AppBar(
+          title: Text('Slow Scrolling Up Example'),
+        ),
+        body: SlowScrollingWidget(),
       ),
     );
   }
 }
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
-    required this.minHeight,
-    required this.maxHeight,
-    required this.child,
-  });
-
-  final double minHeight;
-  final double maxHeight;
-  final Widget child;
-
+class SlowScrollingWidget extends StatefulWidget {
   @override
-  double get minExtent => minHeight;
-
-  @override
-  double get maxExtent => math.max(maxHeight, minHeight);
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new SizedBox.expand(child: child);
-  }
-
-  @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
-  }
+  _SlowScrollingWidgetState createState() => _SlowScrollingWidgetState();
 }
 
-class CollapsingList extends StatelessWidget {
-  SliverPersistentHeader makeHeader(String headerText) {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _SliverAppBarDelegate(
-        minHeight: 150.0,
-        maxHeight: 150.0,
-        child: Container(
-            color: Colors.lightBlue, child: Center(child: Text(headerText))),
-      ),
-    );
+class _SlowScrollingWidgetState extends State<SlowScrollingWidget> {
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    // Check if the scroll position is close to the top
+    if (_scrollController.position.pixels <= 50.0) {
+      _scrollUpSlowly();
+    }
+  }
+
+  void _scrollUpSlowly() async {
+    while (_scrollController.position.pixels > 0) {
+      await Future.delayed(Duration(
+          milliseconds:
+              50)); // Adjust the delay as needed for the scrolling speed
+      _scrollController.jumpTo(_scrollController.position.pixels -
+          1); // Adjust the offset change to control the scrolling speed
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverFixedExtentList(
-          itemExtent: 150.0,
-          delegate: SliverChildListDelegate(
-            [
-              Container(
-                color: Colors.red,
-                child: Center(
-                  child: Text(
-                    "Header Section 1",
-                    style: new TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-        makeHeader('Header Section 2'),
-        SliverFixedExtentList(
-            itemExtent: 50.0,
-            delegate:
-                SliverChildBuilderDelegate((BuildContext context, int index) {
-              return new Container(
-                alignment: Alignment.center,
-                child: new Text('List item $index'),
-              );
-            }, childCount: 100)),
-      ],
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollStartNotification) {
+          // Reset the scroll position when scrolling starts
+          _scrollController.jumpTo(_scrollController.position.pixels);
+        }
+        return false;
+      },
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: 50,
+        itemBuilder: (context, index) {
+          return ListTile(title: Text('List Item ${index + 1}'));
+        },
+      ),
     );
   }
 }
