@@ -3,18 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import 'package:flutter/rendering.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/bottom_material/bottom_links.dart';
 import 'package:homepage/button_material.dart/button_bar.dart';
-
 import 'package:homepage/image_material.dart/image_picker.dart';
-
 import 'package:homepage/material_custom.dart/custom_appbar.dart';
 import 'package:homepage/page_material/more_reviewpage.dart';
-
 import 'package:homepage/page_material/tag_state.dart';
 
 List<String> suggestTags = [
@@ -69,6 +63,7 @@ class _ReviewPage extends State<ReviewPage> {
         body: Container(
       width: double.maxFinite,
       height: double.maxFinite,
+      color: Color(0xffFFFFFF),
       child: Stack(
         children: [
           CustomScrollView(slivers: <Widget>[
@@ -190,6 +185,11 @@ class _ReviewPage extends State<ReviewPage> {
               ),
             ),
             SliverToBoxAdapter(
+              child: SizedBox(
+                height: 55,
+              ),
+            ),
+            SliverToBoxAdapter(
               child: BottomMaterialLink(),
             )
           ]),
@@ -211,7 +211,7 @@ class Column2_reviewpage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               color: Color(0XFFFFFFFF),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Color(0XFFCDCDCD))),
           width: 650,
           height: 1000,
@@ -323,7 +323,7 @@ class CustomerReview extends StatelessWidget {
                     allowHalfRating: true,
                     itemSize: 23,
                     itemCount: 5,
-                    maxRating: 5,
+                    initialRating: 5,
                     itemBuilder: (context, _) => Icon(
                       Icons.star,
                       color: Colors.amber,
@@ -417,8 +417,8 @@ class Column1_reviewpage extends StatelessWidget {
           height: 1000,
           decoration: BoxDecoration(
               color: Color(0XFFF5F5F5),
-              border: Border.all(width: 2, color: Color(0XFFCDCDCD)),
-              borderRadius: BorderRadius.circular(20)),
+              border: Border.all(width: 1, color: Color(0xffCDCDCD)),
+              borderRadius: BorderRadius.circular(10)),
           child: Column(
             children: [
               Container(
@@ -438,13 +438,15 @@ class Column1_reviewpage extends StatelessWidget {
                             height: 20,
                           ),
                           RatingBar.builder(
-                            initialRating: 0,
-                            minRating: 0,
+                            initialRating: 1,
+                            minRating: 1,
+                            unratedColor: Color(0xffAAAAAA),
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
+                            glow: false,
                             itemBuilder: (context, _) => Icon(
-                              Icons.star,
+                              Icons.star_border_outlined,
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (rating) {
@@ -466,6 +468,8 @@ class Column1_reviewpage extends StatelessWidget {
                               height: 60,
                               decoration: BoxDecoration(
                                   color: Colors.white,
+                                  border: Border.all(
+                                      width: 1, color: Color(0xffCDCDCD)),
                                   borderRadius: BorderRadius.circular(300)),
                               child: TextField(
                                 minLines: 1,
@@ -495,6 +499,8 @@ class Column1_reviewpage extends StatelessWidget {
                               height: 180,
                               decoration: BoxDecoration(
                                   color: Colors.white,
+                                  border: Border.all(
+                                      width: 1, color: Color(0xffCDCDCD)),
                                   borderRadius: BorderRadius.circular(30)),
                               child: TextField(
                                 maxLengthEnforcement:
@@ -525,6 +531,8 @@ class Column1_reviewpage extends StatelessWidget {
                               height: 180,
                               decoration: BoxDecoration(
                                   color: Colors.white,
+                                  border: Border.all(
+                                      width: 1, color: Color(0xffCDCDCD)),
                                   borderRadius: BorderRadius.circular(30)),
                               child: TagState()),
                           SizedBox(

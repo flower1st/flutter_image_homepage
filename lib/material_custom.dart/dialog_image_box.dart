@@ -10,7 +10,50 @@ void main() {
   runApp(MyApp());
 }
 
-class DialogImage extends StatelessWidget {
+int _currentImageIndex = 0;
+List<String> imageList = [
+  'images/banner2.png',
+  'images/banner3.png',
+  'images/banner4.png',
+  'images/banner1.png',
+  'images/banner5.png',
+  'images/banner6.png',
+  'images/banner7.png',
+  'images/banner8.png',
+  'images/banner9.png',
+  'images/banner10.png',
+  'images/banner11.png',
+  'images/banner4.png',
+  'images/banner3.png',
+  'images/banner7.png',
+];
+
+class DialogImage extends StatefulWidget {
+  @override
+  State<DialogImage> createState() => _DialogImageState();
+}
+
+class _DialogImageState extends State<DialogImage> {
+  void _switchImage() {
+    setState(() {
+      if (_currentImageIndex < imageList.length - 1) {
+        _currentImageIndex++;
+      } else {
+        // Stop at the last index
+      }
+    });
+  }
+
+  void _backImage() {
+    setState(() {
+      if (_currentImageIndex > 0) {
+        _currentImageIndex--;
+      } else {
+        // Stop at the last index
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,60 +64,10 @@ class DialogImage extends StatelessWidget {
           content: Column(mainAxisSize: MainAxisSize.max, children: [
             Image.asset(
               height: 650,
-              width: 900,
-              'images/cityview.png',
+              width: 980,
+              imageList[_currentImageIndex],
               filterQuality: FilterQuality.high,
               fit: BoxFit.cover,
-            ),
-            Container(
-              color: Color.fromARGB(255, 18, 192, 36),
-              width: double.infinity,
-              height: 150,
-              child: Stack(
-                children: [
-                  Positioned(
-                    child: CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 253, 252, 252),
-                      radius: 30,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("images/avt1.png"),
-                        radius: 29,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    width: 200,
-                    height: 150,
-                    top: 40,
-                    left: 40,
-                    child: Text.rich(TextSpan(children: [
-                      TextSpan(
-                          text: "Johan Martin",
-                          style: GoogleFonts.mulish(
-                              textStyle: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w700))),
-                      WidgetSpan(child: SizedBox(width: 10)),
-                    ])),
-                  ),
-                  Positioned(
-                    left: 50,
-                    bottom: 100,
-                    child: Text.rich(TextSpan(children: [
-                      WidgetSpan(
-                          child:
-                              Icon(size: 25, color: Colors.amber, Icons.star)),
-                      TextSpan(
-                          text: " (1200)",
-                          style: GoogleFonts.mulish(
-                              textStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color(0XFF777777)))),
-                      WidgetSpan(child: SizedBox(width: 10)),
-                    ])),
-                  ),
-                ],
-              ),
             ),
           ]),
           actions: [
@@ -90,7 +83,9 @@ class DialogImage extends StatelessWidget {
           left: 410,
           top: 450,
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _backImage();
+              },
               style: ButtonStyle(
                 elevation: MaterialStateProperty.all(1),
                 fixedSize: MaterialStateProperty.all(Size(50, 55)),
@@ -112,7 +107,9 @@ class DialogImage extends StatelessWidget {
           right: 410,
           top: 450,
           child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _switchImage();
+              },
               style: ButtonStyle(
                 elevation: MaterialStateProperty.all(1),
                 fixedSize: MaterialStateProperty.all(Size(50, 55)),

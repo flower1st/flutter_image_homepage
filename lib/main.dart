@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_final_fields, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member, unused_field
+// ignore_for_file: prefer_final_fields, prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_new, avoid_unnecessary_containers, sized_box_for_whitespace, override_on_non_overriding_member, unused_field, unused_element, no_leading_underscores_for_local_identifiers
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/bottom_material/bottom_links.dart';
 import 'package:homepage/button_material.dart/button_bar.dart';
@@ -12,6 +10,12 @@ import 'package:homepage/material_custom.dart/custom_appbar.dart';
 import 'package:homepage/material_custom.dart/mouse_region.dart';
 import 'material_custom.dart/google_map_api2.dart';
 
+const List<String> list = <String>[
+  'Open Now - Closes 10 PM ',
+  'Open Now - Closes 12 PM ',
+  'Open Now - Closes 2 PM ',
+  'Open Now - Closes 1 PM '
+];
 void main() {
   runApp(const MyApp());
 }
@@ -37,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  String dropdownValue = list.firstOrNull.toString();
   late AnimationController _animationController;
   late Animation<double> _positionAnimation;
   late AnimationController _controller;
@@ -44,28 +49,28 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late Timer _pinTimer;
   @override
   void dispose() {
-    _pinTimer?.cancel();
+    _pinTimer.cancel();
     super.dispose();
   }
 
-  Duration _pinDelayDuration = Duration(milliseconds: 500);
+  Duration _pinDelayDuration = Duration(milliseconds: 100);
   ScrollController _scrollController2 = ScrollController();
   bool isButtonVisible = true;
   bool isExpanded = false;
   bool showWidget = false;
   bool _isPinned = false;
   double _scrollOffset = 0.0;
-  double _pinnedPosition = 200.0;
+  double _pinnedPosition = 500.0;
 
   @override
   void _handleScroll() {
-    if (kToolbarHeight <= _pinnedPosition) {
+    if (-_scrollOffset <= _pinnedPosition) {
       // Scrolling up or at the top
-      _pinTimer?.cancel();
+      _pinTimer.cancel();
       _isPinned = false;
     } else {
       // Scrolling down
-      _pinTimer?.cancel();
+      _pinTimer.cancel();
       _pinTimer = Timer(_pinDelayDuration, () {
         setState(() {
           _isPinned = true;
@@ -76,24 +81,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   void initState() {
     super.initState();
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-
-    _positionAnimation = Tween<double>(
-      begin: _pinnedPosition,
-      end: 0,
-    ).animate(_animationController);
-
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        setState(() {
-          _isPinned = true;
-        });
-      }
-    });
   }
 
   void _handleButtonPress() {
@@ -122,8 +109,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var _mediaquery = MediaQuery.of(context);
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         appBar: AppBar(
           notificationPredicate: (notification) {
@@ -171,11 +157,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   const EdgeInsets.only(left: 190, top: 30),
                               child: CircleAvatar(
                                 backgroundColor: Color(0XFF777777),
-                                radius: _mediaquery.size.width * 0.03,
+                                radius: _mediaquery.size.width * 0.025,
                                 child: CircleAvatar(
                                   backgroundImage:
                                       AssetImage("images/avt1.png"),
-                                  radius: _mediaquery.size.width * 0.029,
+                                  radius: _mediaquery.size.width * 0.0245,
                                 ),
                               ),
                             ),
@@ -253,20 +239,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   color: Color(0XFF777777)))),
                                     ])),
                                     SizedBox(
-                                      width: 20,
+                                      width: 200,
                                     ),
                                     SizedBox(
                                         width: _mediaquery.size.width * 0.5,
                                         child: CustomButtonBar()),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
                                   ],
                                 ),
                               ],
                             ),
-                            Text("$screenwidth,$screenheight"),
                           ]),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 15,
                         ),
                       ),
                       SliverToBoxAdapter(
@@ -367,7 +354,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               fit: BoxFit.cover,
                                               image: AssetImage(
                                                   "images/banner2.png")),
-                                          color: Colors.amber,
                                         ),
                                         width: 260,
                                         height: 230,
@@ -381,7 +367,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               fit: BoxFit.cover,
                                               image: AssetImage(
                                                   "images/banner2.png")),
-                                          color: Colors.amber,
                                         ),
                                         width: 260,
                                         height: 230,
@@ -402,7 +387,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 fit: BoxFit.cover,
                                                 image: AssetImage(
                                                     "images/banner2.png")),
-                                            color: Colors.amber,
                                             borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(10))),
                                         width: 260,
@@ -417,7 +401,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                 fit: BoxFit.cover,
                                                 image: AssetImage(
                                                     "images/banner2.png")),
-                                            color: Colors.amber,
                                             borderRadius: BorderRadius.only(
                                                 bottomRight:
                                                     Radius.circular(10))),
@@ -435,67 +418,31 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           ),
                         ]),
                       ),
-                      SliverPadding(
-                        padding: EdgeInsets.only(bottom: 800),
-                        sliver: SliverToBoxAdapter(
-                          child: Stack(children: [
-                            Positioned(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.only(right: 1440),
-                                      child: Text(
-                                        style: GoogleFonts.mulish(
-                                            textStyle: TextStyle(
-                                                fontSize: 35,
-                                                fontWeight: FontWeight.w700)),
-                                        "Services",
-                                      )),
-                                  GridViewServices(),
-                                  Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 460),
-                                      child: isButtonVisible
-                                          ? InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  _handleButtonPress();
-                                                });
-                                              },
-                                              child:
-                                                  Text.rich(TextSpan(children: [
-                                                TextSpan(
-                                                  text: 'View All',
-                                                  style: GoogleFonts.mulish(
-                                                      textStyle: TextStyle(
-                                                          color: Colors.pink,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w700)),
-                                                ),
-                                                WidgetSpan(
-                                                    child: Icon(
-                                                  size: 20,
-                                                  Icons.arrow_forward_outlined,
-                                                  color: Colors.pink,
-                                                ))
-                                              ])),
-                                            )
-                                          : SizedBox()),
-                                  Visibility(
-                                      visible: isExpanded,
-                                      child: Column(
-                                        children: [
-                                          GridViewServices(),
-                                        ],
-                                      )),
-                                  SizedBox(height: 30),
-                                  Padding(
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 25,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Stack(children: [
+                          Positioned(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    padding: EdgeInsets.only(right: 1440),
+                                    child: Text(
+                                      style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w700)),
+                                      "Services",
+                                    )),
+                                GridViewServices(),
+                                Padding(
                                     padding: const EdgeInsets.only(right: 460),
                                     child: isButtonVisible
-                                        ? SizedBox()
-                                        : InkWell(
+                                        ? InkWell(
                                             onTap: () {
                                               setState(() {
                                                 _handleButtonPress();
@@ -515,28 +462,64 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                               WidgetSpan(
                                                   child: Icon(
                                                 size: 20,
-                                                Icons.arrow_back_outlined,
+                                                Icons.arrow_forward_outlined,
                                                 color: Colors.pink,
                                               ))
                                             ])),
-                                          ),
-                                  ),
-                                  BottomMaterialLink(),
-                                ],
-                              ),
+                                          )
+                                        : SizedBox()),
+                                Visibility(
+                                    visible: isExpanded,
+                                    child: Column(
+                                      children: [
+                                        GridViewServices(),
+                                      ],
+                                    )),
+                                SizedBox(height: 30),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 460),
+                                  child: isButtonVisible
+                                      ? SizedBox()
+                                      : InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              _handleButtonPress();
+                                            });
+                                          },
+                                          child: Text.rich(TextSpan(children: [
+                                            TextSpan(
+                                              text: 'Back',
+                                              style: GoogleFonts.mulish(
+                                                  textStyle: TextStyle(
+                                                      color: Colors.pink,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w700)),
+                                            ),
+                                            WidgetSpan(
+                                                child: Icon(
+                                              size: 20,
+                                              Icons.arrow_back_outlined,
+                                              color: Colors.pink,
+                                            ))
+                                          ])),
+                                        ),
+                                ),
+                                BottomMaterialLink(),
+                              ],
                             ),
-                          ]),
-                        ),
+                          ),
+                        ]),
                       ),
                     ]),
               ),
               AnimatedPositioned(
                   width: 550,
                   duration: Duration(milliseconds: 1100),
-                  top: _isPinned ? 0 : kToolbarHeight * 12,
-                  right: 50,
+                  top: _isPinned ? 0 : _pinnedPosition + 200,
+                  right: 20,
                   child: Container(
-                      height: 700,
+                      height: 830,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
@@ -600,10 +583,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   "7400 Hazard Ave Westminster,\nCA 92683",
                                   style: GoogleFonts.mulish(
                                       fontSize: 20,
-                                      fontWeight: FontWeight.w700),
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(
-                                  width: 60,
+                                  width: 65,
                                 ),
                                 ElevatedButton(
                                     style: ButtonStyle(
@@ -621,8 +604,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     onPressed: () {},
                                     child: Container(
                                       width: 100,
-                                      height: 50,
-                                      decoration: BoxDecoration(),
+                                      height: 20,
                                       child: Text(
                                         "Directions",
                                         textAlign: TextAlign.center,
@@ -634,41 +616,209 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               ],
                             ),
                           ),
+                          Container(
+                            height: 60,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Color(0xff333333),
+                                    child: Image(
+                                        width: 22,
+                                        height: 22,
+                                        fit: BoxFit.fill,
+                                        image: AssetImage("images/phone.png"))),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "613-555-0184",
+                                  style: GoogleFonts.mulish(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  width: 220,
+                                ),
+                                ElevatedButton(
+                                    style: ButtonStyle(
+                                        fixedSize: MaterialStateProperty.all(
+                                            Size(100, 40)),
+                                        padding: MaterialStateProperty.all(
+                                            EdgeInsets.all(10)),
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10))),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Color(0xff333333))),
+                                    onPressed: () {},
+                                    child: Container(
+                                      width: 100,
+                                      height: 20,
+                                      child: Text(
+                                        "Call",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.mulish(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Price: ",
+                                style: GoogleFonts.mulish(
+                                    color: Color(0xff333333), fontSize: 20),
+                              ),
+                              Text("\$149.99",
+                                  style: GoogleFonts.mulish(
+                                      color: Color(0xffD3427A),
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w700))
+                            ],
+                          ),
+                          SizedBox(
+                            height: 35,
+                          ),
+                          Container(
+                            width: 500,
+                            height: 50,
+                            color: Color(0xffF7F7F7),
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              iconSize: 30,
+                              borderRadius: BorderRadius.circular(10),
+                              padding: EdgeInsets.only(left: 20),
+                              icon: Padding(
+                                padding: const EdgeInsets.only(left: 190),
+                                child: const Icon(Icons.arrow_drop_down),
+                              ),
+                              elevation: 16,
+                              underline: SizedBox(),
+                              style: const TextStyle(
+                                  color: Color(0xff007B2A),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800),
+                              onChanged: (String? value) {
+                                // This is called when the user selects an item.
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                              items: list.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text: value.substring(0, 9),
+                                        style: GoogleFonts.mulish(
+                                            color: Color(0xff007B2A))),
+                                    TextSpan(
+                                        text: value.substring(9, 23),
+                                        style: GoogleFonts.mulish(
+                                            color: Color(0xff777777)))
+                                  ])),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                "www.lathersalonaspen.com.au",
+                                style: GoogleFonts.mulish(fontSize: 20),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                "Social Media",
+                                style: GoogleFonts.mulish(fontSize: 20),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Image(
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.high,
+                                  image: AssetImage("images/fbfb.png")),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Image(
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.high,
+                                  image: AssetImage("images/insins.png")),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Image(
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.high,
+                                  image:
+                                      AssetImage("images/twittertwitter.png")),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          TextButton(
+                              onPressed: () {},
+                              child: Container(
+                                width: 500,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(300),
+                                  color: Color(0xffD3427A),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Book Now",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.mulish(
+                                        fontSize: 25,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ))
                         ],
                       ))),
             ],
           ),
         ));
-  }
-}
-
-class RenderStickySliver extends RenderSliverToBoxAdapter {
-  RenderStickySliver({RenderConstrainedBox? child}) : super(child: child);
-  @override
-  void performLayout() {
-    var myCurrentConstraints = constraints;
-
-    geometry = SliverGeometry.zero;
-
-    child?.layout(
-      constraints.asBoxConstraints(),
-      parentUsesSize: true,
-    );
-    double childExtent = child?.size.height ?? 0;
-
-    geometry = SliverGeometry(
-        paintExtent: childExtent,
-        maxPaintExtent: childExtent,
-        paintOrigin: constraints.scrollOffset);
-    setChildParentData(child!, constraints, geometry!);
-  }
-}
-
-class StickySliver extends SingleChildRenderObjectWidget {
-  StickySliver({Widget? child, Key? key}) : super(child: child, key: key);
-  @override
-  RenderObject createRenderObject(BuildContext context) {
-    return RenderStickySliver();
   }
 }
 
@@ -729,19 +879,4 @@ class GridViewServices extends StatelessWidget {
       ],
     );
   }
-}
-
-Widget _buildNestedCustomScrollView(String title) {
-  return StickySliver(
-    child: Stack(
-      children: [
-        Container(
-          width: 300,
-          height: 450,
-          color: Colors.blue,
-          child: Text("Hello"),
-        )
-      ],
-    ),
-  );
 }

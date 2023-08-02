@@ -56,32 +56,123 @@ class _GridViewImage extends State<GridViewImage> {
           mainAxisSpacing: 10, // Spacing between rows
         ),
         itemBuilder: (context, index) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 2, 1, 2),
-                child: InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return DialogImage();
-                      },
-                    );
-                  },
-                  child: Image.asset(
-                    width: 500,
-                    height: 320,
-                    imageList[index],
-                    fit: BoxFit.cover,
-                  ),
-                ),
+          String imageUrl = imageList[index];
+          return Container(
+            child: InkWell(
+              onTap: () {
+                _showImageDialog(context, imageUrl);
+              },
+              child: Image.asset(
+                width: 500,
+                height: 320,
+                imageList[index],
+                fit: BoxFit.cover,
               ),
-            ],
+            ),
           );
         },
       ),
+    );
+  }
+
+  void _showImageDialog(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        int currentImageIndex = imageList.indexOf(imageUrl);
+        return StatefulBuilder(builder: (context, setState) {
+          void _switchImage() {
+            setState(() {
+              if (currentImageIndex < imageList.length - 1) {
+                currentImageIndex++;
+              } else {
+                // Stop at the last index
+              }
+            });
+          }
+
+          void _backImage() {
+            setState(() {
+              if (currentImageIndex > 0) {
+                currentImageIndex--;
+              } else {
+                // Stop at the last index
+              }
+            });
+          }
+
+          return Stack(children: [
+            AlertDialog(
+              title: Text('Image Dialog'),
+              content: Column(mainAxisSize: MainAxisSize.max, children: [
+                Image(
+                  image: AssetImage(imageList[currentImageIndex]),
+                  height: 650,
+                  width: 980,
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
+                ),
+              ]),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Close'),
+                ),
+              ],
+            ),
+            Positioned(
+              left: 410,
+              top: 450,
+              child: ElevatedButton(
+                  onPressed: () {
+                    _backImage();
+                  },
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(1),
+                    fixedSize: MaterialStateProperty.all(Size(50, 55)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 255, 255, 255)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(300.0),
+                        side: BorderSide(width: 3, color: Color(0XFF682243)),
+                      ),
+                    ),
+                  ),
+                  child: Icon(
+                      size: 29,
+                      color: Color(0XFF682243),
+                      Icons.arrow_back_rounded)),
+            ),
+            Positioned(
+              right: 410,
+              top: 450,
+              child: ElevatedButton(
+                  onPressed: () {
+                    _switchImage();
+                  },
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(1),
+                    fixedSize: MaterialStateProperty.all(Size(50, 55)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 255, 255, 255)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(300.0),
+                        side: BorderSide(width: 3, color: Color(0XFF682243)),
+                      ),
+                    ),
+                  ),
+                  child: Icon(
+                      size: 29,
+                      color: Color(0XFF682243),
+                      Icons.arrow_forward_rounded)),
+            ),
+          ]);
+        });
+      },
     );
   }
 }

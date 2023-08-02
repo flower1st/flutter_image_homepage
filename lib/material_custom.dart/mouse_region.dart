@@ -46,7 +46,7 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                 height: 430,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Color.fromARGB(255, 230, 224, 224),
+                  color: Color.fromARGB(255, 255, 253, 253),
                 )),
             ProfileImage(name: widget.path),
             Positioned(

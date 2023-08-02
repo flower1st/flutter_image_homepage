@@ -11,6 +11,8 @@ import 'package:homepage/material_custom.dart/google_map_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:number_paginator/number_paginator.dart';
 
+import '../main.dart';
+
 class Spa {
   final String name;
   final LatLng position;
@@ -249,6 +251,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           backgroundColor: Colors.transparent,
           title: Container(
@@ -265,10 +268,13 @@ class _SearchPageState extends State<SearchPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {},
-                  hoverColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return MyHomePage();
+                      },
+                    ));
+                  },
                   child: Image.asset(
                     "images/logo.png",
                     alignment: Alignment.centerRight,

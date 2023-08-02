@@ -54,8 +54,8 @@ class _ImageUploader extends State<ImageUploader> {
                           Container(
                               margin: EdgeInsets.all(10),
                               decoration: BoxDecoration(),
-                              width: 100,
-                              height: 100,
+                              width: 120,
+                              height: 120,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8.0),
                                   child: Image.file(
@@ -88,7 +88,7 @@ class _ImageUploader extends State<ImageUploader> {
                     elevation: MaterialStateProperty.all(1),
                     fixedSize: MaterialStateProperty.all(Size(150, 150)),
                     side: MaterialStateProperty.all(
-                        BorderSide(width: 2, color: Color(0xff777777))),
+                        BorderSide(width: 2, color: Colors.transparent)),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Color(0XFFFFECEC)),
                     shape: MaterialStateProperty.all(

@@ -19,14 +19,14 @@ class _CustomButtonBar extends State<CustomButtonBar> {
       ElevatedButton(
         onPressed: () {},
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all(1),
+          elevation: MaterialStateProperty.all(0),
           fixedSize: MaterialStateProperty.all(
               Size(_mediaquery.size.width * 0.09, 50)),
           backgroundColor: MaterialStateProperty.all<Color>(Color(0XFFD3427A)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
-              side: BorderSide(width: 3, color: Color(0XFFD3427A)),
+              side: BorderSide(width: 2, color: Color(0XFFD3427A)),
             ),
           ),
         ),
@@ -46,14 +46,14 @@ class _CustomButtonBar extends State<CustomButtonBar> {
             ));
           },
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all(1),
+            elevation: MaterialStateProperty.all(0),
             fixedSize: MaterialStateProperty.all(
                 Size(_mediaquery.size.width * 0.125, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(width: 3, color: Color(0XFFCDCDCD)),
+                side: BorderSide(width: 2, color: Color(0XFFCDCDCD)),
               ),
             ),
           ),
@@ -80,14 +80,14 @@ class _CustomButtonBar extends State<CustomButtonBar> {
       ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all(1),
+            elevation: MaterialStateProperty.all(0),
             fixedSize: MaterialStateProperty.all(
                 Size(_mediaquery.size.width * 0.1, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(width: 3, color: Color(0XFFCDCDCD)),
+                side: BorderSide(width: 2, color: Color(0XFFCDCDCD)),
               ),
             ),
           ),
@@ -113,14 +113,14 @@ class _CustomButtonBar extends State<CustomButtonBar> {
       ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all(1),
+            elevation: MaterialStateProperty.all(0),
             fixedSize: MaterialStateProperty.all(
                 Size(_mediaquery.size.width * 0.07, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(width: 3, color: Color(0XFFCDCDCD)),
+                side: BorderSide(width: 2, color: Color(0XFFCDCDCD)),
               ),
             ),
           ),
@@ -146,14 +146,14 @@ class _CustomButtonBar extends State<CustomButtonBar> {
       ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            elevation: MaterialStateProperty.all(1),
+            elevation: MaterialStateProperty.all(0),
             fixedSize: MaterialStateProperty.all(
                 Size(_mediaquery.size.width * 0.07, 50)),
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
-                side: BorderSide(width: 3, color: Color(0XFFCDCDCD)),
+                side: BorderSide(width: 2, color: Color(0XFFCDCDCD)),
               ),
             ),
           ),

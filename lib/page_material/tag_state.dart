@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyApp(),
+      home: const TagState(),
     );
   }
 }
@@ -54,6 +54,7 @@ class _TagState extends State<TagState> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Column(
         children: [
           TextFieldTags(
@@ -94,11 +95,11 @@ class _TagState extends State<TagState> {
                               child: Row(
                                   children: tags.map((String tag) {
                                 return Container(
-                                  width: 180,
+                                  width: 150,
                                   height: 50,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        width: 3, color: Color(0XFFCDCDCD)),
+                                        width: 1, color: Color(0XFFCDCDCD)),
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(300.0),
                                     ),
@@ -113,7 +114,7 @@ class _TagState extends State<TagState> {
                                               textStyle: TextStyle(
                                                   decoration:
                                                       TextDecoration.none,
-                                                  fontSize: 20,
+                                                  fontSize: 15,
                                                   fontWeight: FontWeight.w500,
                                                   color: Color.fromARGB(
                                                       255, 0, 0, 0)),

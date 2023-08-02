@@ -112,8 +112,8 @@ class _BottomMaterialLink extends State<BottomMaterialLink> {
           ]),
         ),
         Divider(
-          height: 10,
-          thickness: 5,
+          height: 5,
+          thickness: 3,
           indent: 0,
           endIndent: 0,
           color: Color(0XFFEAE5E5),
